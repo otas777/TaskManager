@@ -10,7 +10,7 @@ import Foundation
 
 class FirebaseTaskRepository: TaskRepository {
     
-    override func getTaskList(callback: @escaping (NSError) -> ()) {
+    func getTaskList(callback: @escaping (NSError) -> ()) {
         API.taskList { (list) in
             if let list = list {
                 

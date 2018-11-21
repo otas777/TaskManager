@@ -18,7 +18,6 @@
 		B600B35321A4353100221CCB /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B35021A4353100221CCB /* TaskListViewController.swift */; };
 		B600B35621A4375B00221CCB /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B35521A4375B00221CCB /* AuthRepository.swift */; };
 		B600B35E21A43CEC00221CCB /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B35D21A43CEC00221CCB /* LoginUseCase.swift */; };
-		B600B36821A449A100221CCB /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B36721A449A100221CCB /* Repository.swift */; };
 		B600B36A21A4520600221CCB /* TaskListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B36921A4520600221CCB /* TaskListUseCase.swift */; };
 		B600B36C21A4524B00221CCB /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B36B21A4524B00221CCB /* TaskRepository.swift */; };
 		B600B37121A4564900221CCB /* FirebaseAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37021A4564900221CCB /* FirebaseAuthRepository.swift */; };
@@ -28,6 +27,7 @@
 		B600B37F21A45B3F00221CCB /* FirebaseTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37E21A45B3F00221CCB /* FirebaseTaskRepository.swift */; };
 		B600B38121A4684D00221CCB /* Firebase.plist in Resources */ = {isa = PBXBuildFile; fileRef = B600B38021A4684D00221CCB /* Firebase.plist */; };
 		B600B38321A4CF4100221CCB /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B38221A4CF4100221CCB /* Date+Ext.swift */; };
+		B600B38521A5A10400221CCB /* RealmUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B38421A5A10400221CCB /* RealmUtil.swift */; };
 		B645ADCE21A180600057BD4D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B645ADCD21A1805F0057BD4D /* API.swift */; };
 		B6C2774B21A00667009B1C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2774A21A00667009B1C13 /* AppDelegate.swift */; };
 		B6C2775021A00667009B1C13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C2774E21A00667009B1C13 /* Main.storyboard */; };
@@ -48,7 +48,6 @@
 		B600B35021A4353100221CCB /* TaskListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		B600B35521A4375B00221CCB /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		B600B35D21A43CEC00221CCB /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
-		B600B36721A449A100221CCB /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		B600B36921A4520600221CCB /* TaskListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListUseCase.swift; sourceTree = "<group>"; };
 		B600B36B21A4524B00221CCB /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
 		B600B37021A4564900221CCB /* FirebaseAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthRepository.swift; sourceTree = "<group>"; };
@@ -58,6 +57,7 @@
 		B600B37E21A45B3F00221CCB /* FirebaseTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTaskRepository.swift; sourceTree = "<group>"; };
 		B600B38021A4684D00221CCB /* Firebase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Firebase.plist; sourceTree = "<group>"; };
 		B600B38221A4CF4100221CCB /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		B600B38421A5A10400221CCB /* RealmUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUtil.swift; sourceTree = "<group>"; };
 		B645ADCD21A1805F0057BD4D /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		B6C2774721A00667009B1C13 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C2774A21A00667009B1C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				B600B35521A4375B00221CCB /* AuthRepository.swift */,
-				B600B36721A449A100221CCB /* Repository.swift */,
+				B600B38421A5A10400221CCB /* RealmUtil.swift */,
 				B600B36B21A4524B00221CCB /* TaskRepository.swift */,
 				B600B37421A4598F00221CCB /* Entities */,
 				B600B36F21A4562500221CCB /* Firebase */,
@@ -300,9 +300,9 @@
 				B600B34C21A2EC1200221CCB /* Loading.swift in Sources */,
 				B600B36A21A4520600221CCB /* TaskListUseCase.swift in Sources */,
 				B6C2774B21A00667009B1C13 /* AppDelegate.swift in Sources */,
+				B600B38521A5A10400221CCB /* RealmUtil.swift in Sources */,
 				B645ADCE21A180600057BD4D /* API.swift in Sources */,
 				B600B34821A2E9BF00221CCB /* Response.swift in Sources */,
-				B600B36821A449A100221CCB /* Repository.swift in Sources */,
 				B600B35E21A43CEC00221CCB /* LoginUseCase.swift in Sources */,
 				B600B37A21A4598F00221CCB /* Task.swift in Sources */,
 				B600B35121A4353100221CCB /* LoginViewController.swift in Sources */,

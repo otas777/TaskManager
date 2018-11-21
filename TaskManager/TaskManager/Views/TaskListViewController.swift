@@ -45,7 +45,7 @@ extension TaskListViewController {
         
     }
     @IBAction func onLogout(_ sender: UIBarButtonItem) {
-        AuthRepository.deleteAll()
+        RealmUtil.deleteAll(type: Auth.self)
         RootViewController.shared?.toLogin()
     }
 }

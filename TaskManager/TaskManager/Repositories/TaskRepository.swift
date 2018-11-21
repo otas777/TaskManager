@@ -8,14 +8,7 @@
 
 import Foundation
 
-class TaskRepository: Repository {
-    typealias EntityType = Task
-    
-    private var authRepository: AuthRepository!
-    
-    func getTaskList(callback: @escaping (NSError) -> ()) {
-        fatalError("TaskRepository.getTaskList(callback) has not been implemented")
-    }
-    
+protocol TaskRepository {
+    func getTaskList(callback: @escaping (NSError) -> ())
 }
 

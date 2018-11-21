@@ -9,18 +9,9 @@
 import Foundation
 import RealmSwift
 
-class AuthRepository: Repository {
-    typealias EntityType = Auth
-    
-    func login(email: String, password: String, callback: @escaping (NSError?) -> ()) {
-        fatalError("AuthRepository.login(email:password:callback:) has not been implemented")
-    }
-    func register(email: String, password: String, callback: @escaping (NSError?) -> ()) {
-        fatalError("AuthRepository.register(email:password:callback:) has not been implemented")
-    }
-    
-    func refresh(callback: @escaping (NSError?) -> ()) {
-        fatalError("AuthRepository.refresh(callback:) has not been implemented")
-    }
+protocol AuthRepository {
+    func login(email: String, password: String, callback: @escaping (NSError?) -> ())
+    func register(email: String, password: String, callback: @escaping (NSError?) -> ())
+    func refresh(callback: @escaping (NSError?) -> ())
 }
 

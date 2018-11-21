@@ -15,6 +15,7 @@ class Entity: Object {
     @objc var updateDate = ""
     
     func update() {
+
         let now = Date.now
         if self.crateDate.isEmpty {
             self.crateDate = now

@@ -10,12 +10,12 @@ import Foundation
 
 class FirebaseAuthRepository: AuthRepository {
 
-    override func login(email: String, password: String, callback: @escaping (NSError?) -> ()) {
+    func login(email: String, password: String, callback: @escaping (NSError?) -> ()) {
         
         API.login(email: email, password: password) { (response) in
             if let response = response {
                 let auth = Auth(response: response)
-                self.add(entity: auth)
+                RealmUtil.add(entity: auth)
                 callback(nil)
                 
             } else {
@@ -25,12 +25,12 @@ class FirebaseAuthRepository: AuthRepository {
         }
     }
     
-    override func register(email: String, password: String, callback: @escaping (NSError?) -> ()) {
+    func register(email: String, password: String, callback: @escaping (NSError?) -> ()) {
         
         API.register(email: email, password: password) { (response) in
             if let response = response {
                 let auth = Auth(response: response)
-                self.add(entity: auth)
+                RealmUtil.add(entity: auth)
                 callback(nil)
                 
             } else {
@@ -40,11 +40,11 @@ class FirebaseAuthRepository: AuthRepository {
         }
     }
     
-    override func refresh(callback: @escaping (NSError?) -> ()) {
+    func refresh(callback: @escaping (NSError?) -> ()) {
         
         API.refreshToken { (response) in
             if let response = response {
-                self.write { (realm) in
+                RealmUtil.write { (realm) in
                     Auth.current?.set(response: response)
                 }
                 
