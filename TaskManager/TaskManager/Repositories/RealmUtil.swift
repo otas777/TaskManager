@@ -11,20 +11,31 @@ import RealmSwift
 
 class RealmUtil  {
     
+    static func findAll<T: Entity>() -> Results<T>? {
+        let realm = try! Realm()
+        return realm.objects(T.self)
+    }
+    
     static func write(callback: (Realm) -> ()) {
-        guard let realm = try? Realm() else {
-            return
-        }
-        
-        try? realm.write {
+        let realm = try! Realm()
+        try! realm.write {
             callback(realm)
         }
     }
     
     static func add(entity: Entity) {
-        entity.update()
         self.write { (realm) in
-            realm.add(entity)
+            entity.update()
+            realm.add(entity, update: true)
+        }
+    }
+    
+    static func add(list: [Entity]) {
+        self.write { (realm) in
+            for entity in list {
+                entity.update()
+                realm.add(entity, update: true)
+            }
         }
     }
     

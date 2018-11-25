@@ -22,6 +22,7 @@ class LoginUseCase {
     }
     
     func login(email: String?, password: String?) {
+
         guard let email = email, let password = password,
             !email.isEmpty, !password.isEmpty else {
 
@@ -30,12 +31,15 @@ class LoginUseCase {
                 return
         }
         
+        Loading.show()
         self.authRepository.login(email: email, password: password) { (error) in
             self.loginDelegate?.onLoginCompleted(error)
+            Loading.dismiss()
         }
     }
     
     func register(email: String?, password: String?) {
+
         guard let email = email, let password = password,
             !email.isEmpty, !password.isEmpty else {
                 
@@ -43,9 +47,11 @@ class LoginUseCase {
                 self.loginDelegate?.onLoginCompleted(error)
                 return
         }
-        
+
+        Loading.show()
         self.authRepository.register(email: email, password: password) { (error) in
             self.loginDelegate?.onLoginCompleted(error)
+            Loading.dismiss()
         }
     }
 }

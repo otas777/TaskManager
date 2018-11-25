@@ -18,10 +18,14 @@ class Auth: Entity {
         return realm.objects(Auth.self).first
     }
     
+    @objc dynamic var localId = ""
     @objc dynamic var idToken = ""
     @objc dynamic var refreshToken = ""
     @objc dynamic var expiredDate: Date?
-    @objc dynamic var localId = ""
+    
+    override class func primaryKey() -> String? {
+        return "localId"
+    }
     
     var isExpired: Bool {
         if let expiredDate = self.expiredDate {
@@ -49,6 +53,7 @@ class Auth: Entity {
         if let sec = TimeInterval(response.expires_in) {
             self.expiredDate = Date().afterDate(sec: sec)
         }
-        self.localId = response.user_id
+//        self.localId = response.user_id
+        self.update()
     }
 }

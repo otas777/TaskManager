@@ -35,6 +35,11 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.emailField.endEditing(true)
+        self.passwordField.endEditing(true)
+    }
 }
 
 // MARK: - IBAction

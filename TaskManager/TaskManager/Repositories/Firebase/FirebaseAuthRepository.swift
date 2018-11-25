@@ -40,20 +40,29 @@ class FirebaseAuthRepository: AuthRepository {
         }
     }
     
-    func refresh(callback: @escaping (NSError?) -> ()) {
-        
-        API.refreshToken { (response) in
-            if let response = response {
-                RealmUtil.write { (realm) in
-                    Auth.current?.set(response: response)
-                }
-                
-            } else {
-                let error = NSError(domain: "トークンの更新ができませんでした。", code: -1, userInfo: nil)
-                callback(error)
-            }
-        }
-    }
+    func validateToken(callback: @escaping (NSError?) -> ()) {
 
-    
+        guard let auth = Auth.current else {
+            let error = NSError(domain: "ログインしてください。", code: -1, userInfo: nil)
+            callback(error)
+            return
+        }
+        
+        if auth.isExpired {
+            // トークンの期限切れのため更新
+            API.refreshToken { (response) in
+                if let response = response {
+                    RealmUtil.write { (realm) in
+                        Auth.current?.set(response: response)
+                    }
+                    callback(nil)
+                } else {
+                    let error = NSError(domain: "トークンの更新ができませんでした。", code: -1, userInfo: nil)
+                    callback(error)
+                }
+            }
+            return
+        }
+        callback(nil)
+    }
 }

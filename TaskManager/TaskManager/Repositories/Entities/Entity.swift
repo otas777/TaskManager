@@ -11,15 +11,15 @@ import Foundation
 import RealmSwift
 
 class Entity: Object {
-    @objc var crateDate = ""
-    @objc var updateDate = ""
+    @objc var create_date = ""
+    @objc var update_date = ""
     
     func update() {
 
         let now = Date.now
-        if self.crateDate.isEmpty {
-            self.crateDate = now
+        if self.create_date.isEmpty {
+            self.create_date = now
         }
-        self.updateDate = now
+        self.update_date = now
     }
 }

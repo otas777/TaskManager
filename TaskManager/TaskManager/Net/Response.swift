@@ -28,6 +28,14 @@ struct RefreshResponse: Codable {
 }
 
 struct TaskResponse: Codable {
-    var birthday3: String
     var name: String
+}
+
+struct FetchTaskResponse: Codable {
+    var title = ""
+    var memo = ""
+    var reminder = ""
+    var create_date = ""
+    var is_completed = false
+
 }

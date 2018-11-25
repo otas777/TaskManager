@@ -12,6 +12,6 @@ import RealmSwift
 protocol AuthRepository {
     func login(email: String, password: String, callback: @escaping (NSError?) -> ())
     func register(email: String, password: String, callback: @escaping (NSError?) -> ())
-    func refresh(callback: @escaping (NSError?) -> ())
+    func validateToken(callback: @escaping (NSError?) -> ())
 }
 

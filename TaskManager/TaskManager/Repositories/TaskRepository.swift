@@ -9,6 +9,8 @@
 import Foundation
 
 protocol TaskRepository {
-    func getTaskList(callback: @escaping (NSError) -> ())
+    func fetchTask(callback: @escaping (NSError?) -> ())
+    func createTask(title: String, now: String, callback: @escaping (NSError?) -> ())
+    func saveTask(task: Task, callback: @escaping (NSError?) -> ())
 }
 

@@ -36,6 +36,13 @@ struct ApiURL {
         let auth = Auth.current
         return String(format: base, (auth?.localId ?? ""), (auth?.idToken ?? ""))
     }
+    
+    static func saveTask(id: String) -> String {
+        let base = databaseURL + "/tasks/%@/%@.json?auth=%@"
+        let auth = Auth.current
+        return String(format: base, (auth?.localId ?? ""), id, (auth?.idToken ?? ""))
+    }
+    
 }
 
 class API {
@@ -58,8 +65,6 @@ class API {
             "returnSecureToken": true
         ]
 
-        Loading.show()
-        print(ApiURL.login)
         Alamofire.request(ApiURL.login,
                           method: .post,
                           parameters: parameters,
@@ -68,7 +73,6 @@ class API {
 
             .responseJSON { response in
                 callback(JSONDecoder.decode(data: response.data))
-                Loading.dismiss()
         }
     }
     
@@ -83,7 +87,6 @@ class API {
             "returnSecureToken": true
         ]
         
-        Loading.show()
         Alamofire.request(ApiURL.register,
                           method: .post,
                           parameters: parameters,
@@ -92,36 +95,6 @@ class API {
             
             .responseJSON { response in
                 callback(JSONDecoder.decode(data: response.data))
-                Loading.dismiss()
-        }
-
-    }
-    
-    static func createTask(callback: @escaping ([String: Any]) ->()) {
-//        curl -X PUT -d '{
-//        "alanisawesome2": {
-//            "name": "Alan Turing",
-//            "birthday": "June 23, 1912"
-//        }
-//    }' 'https://todo-cd263.firebaseio.com/users.json?print=pretty'
-        
-        let parameters: [String: Any] = [
-            "name": "Alan Turing3",
-            "birthday3": "June 23, 1912"
-        ]
-
-        Alamofire.request(ApiURL.task,
-                          method: .post,
-                          parameters: parameters,
-                          encoding: JSONEncoding.default,
-                          headers: self.header)
-
-            .responseJSON { response in
-                
-                if let result = response.result.value as? [String: Any] {
-                    callback(result)
-                    print(result)
-                }
         }
     }
     
@@ -149,9 +122,8 @@ class API {
 
     }
     
-    static func taskList(callback: @escaping ([String: TaskResponse]?) -> ()) {
+    static func fetchTask(callback: @escaping ([String: FetchTaskResponse]?, NSError?) -> ()) {
         
-        Loading.show()
         Alamofire.request(ApiURL.task,
                           method: .get,
                           parameters: nil,
@@ -159,10 +131,60 @@ class API {
                           headers: self.header)
             
             .responseJSON { response in
-                callback(JSONDecoder.decode(data: response.data))
-                Loading.dismiss()
+                
+                if let error = response.error as NSError? {
+                    callback(nil, error)
+                
+                } else {
+                    callback(JSONDecoder.decode(data: response.data), nil)
+                }
         }
     }
 
-
+    static func createTask(title: String, now: String, callback: @escaping (TaskResponse?) ->()) {
+        //        curl -X PUT -d '{
+        //        "alanisawesome2": {
+        //            "name": "Alan Turing",
+        //            "birthday": "June 23, 1912"
+        //        }
+        //    }' 'https://todo-cd263.firebaseio.com/users.json?print=pretty'
+        
+        let parameters: [String: Any] = [
+            "title": title,
+            "memo": "",
+            "reminder": "",
+            "create_date": now,
+            "is_completed": false
+        ]
+        
+        Alamofire.request(ApiURL.task,
+                          method: .post,
+                          parameters: parameters,
+                          encoding: JSONEncoding.default,
+                          headers: self.header)
+            
+            .responseJSON { response in
+                callback(JSONDecoder.decode(data: response.data))
+        }
+    }
+    
+    static func saveTask(task: Task, callback: @escaping (FetchTaskResponse?) ->()) {
+        let parameters: [String: Any] = [
+            "title": task.title,
+            "memo": task.memo,
+            "reminder": task.reminder,
+            "create_date": task.task_create_date,
+            "is_completed": task.is_completed
+        ]
+        
+        Alamofire.request(ApiURL.saveTask(id: task.id),
+            method: .put,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: self.header)
+            
+            .responseJSON { response in
+                callback(JSONDecoder.decode(data: response.data))
+        }
+    }
 }
