@@ -31,16 +31,16 @@ struct ApiURL {
     static let register = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" + apiKey
     static let refreshToken = "https://securetoken.googleapis.com/v1/token?key=" + apiKey
 
-    static var task: String {
-        let base = databaseURL + "/tasks/%@.json?auth=%@"
-        let auth = Auth.current
-        return String(format: base, (auth?.localId ?? ""), (auth?.idToken ?? ""))
-    }
-    
-    static func saveTask(id: String) -> String {
-        let base = databaseURL + "/tasks/%@/%@.json?auth=%@"
-        let auth = Auth.current
-        return String(format: base, (auth?.localId ?? ""), id, (auth?.idToken ?? ""))
+    static func task(id: String? = nil) -> String {
+        if let id = id {
+            let base = databaseURL + "/tasks/%@/%@.json?auth=%@"
+            let auth = Auth.current
+            return String(format: base, (auth?.localId ?? ""), id, (auth?.idToken ?? ""))
+        } else {
+            let base = databaseURL + "/tasks/%@.json?auth=%@"
+            let auth = Auth.current
+            return String(format: base, (auth?.localId ?? ""), (auth?.idToken ?? ""))
+        }
     }
     
 }
@@ -124,7 +124,7 @@ class API {
     
     static func fetchTask(callback: @escaping ([String: FetchTaskResponse]?, NSError?) -> ()) {
         
-        Alamofire.request(ApiURL.task,
+        Alamofire.request(ApiURL.task(),
                           method: .get,
                           parameters: nil,
                           encoding: JSONEncoding.default,
@@ -157,7 +157,7 @@ class API {
             "is_completed": false
         ]
         
-        Alamofire.request(ApiURL.task,
+        Alamofire.request(ApiURL.task(),
                           method: .post,
                           parameters: parameters,
                           encoding: JSONEncoding.default,
@@ -172,16 +172,28 @@ class API {
         let parameters: [String: Any] = [
             "title": task.title,
             "memo": task.memo,
-            "reminder": task.reminder,
             "create_date": task.task_create_date,
             "is_completed": task.is_completed
         ]
         
-        Alamofire.request(ApiURL.saveTask(id: task.id),
+        Alamofire.request(ApiURL.task(id: task.id),
             method: .put,
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: self.header)
+            
+            .responseJSON { response in
+                callback(JSONDecoder.decode(data: response.data))
+        }
+    }
+    
+    static func deleteTask(task: Task, callback: @escaping (FetchTaskResponse?) ->()) {
+
+        Alamofire.request(ApiURL.task(id: task.id),
+                          method: .delete,
+                          parameters: nil,
+                          encoding: JSONEncoding.default,
+                          headers: self.header)
             
             .responseJSON { response in
                 callback(JSONDecoder.decode(data: response.data))

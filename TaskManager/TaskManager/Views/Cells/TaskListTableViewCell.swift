@@ -19,29 +19,26 @@ class TaskListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.baseView.layer.cornerRadius = 10
+        self.baseView.layer.cornerRadius = 4
         self.baseView.layer.masksToBounds = false
         self.baseView.layer.shadowColor = UIColor.black.cgColor
         self.baseView.layer.shadowOpacity = 0.3
         self.baseView.layer.shadowOffset = CGSize(width: 3, height: 3)
-        self.baseView.layer.shadowRadius = 5
+        self.baseView.layer.shadowRadius = 3
     }
 
     func setData(task: Task) {
         
         self.titleLabel.text = task.title
         
-        if task.reminder.isEmpty {
-            self.reminderLabel.isHidden = true
-        } else {
-            self.reminderLabel.isHidden = false
-            self.reminderLabel.text = task.reminder
-        }
-        
         self.createDateLabel.text = task.task_create_date
         
         self.completedSwitch.isOn = task.is_completed
         
+        self.baseView.backgroundColor = task.is_completed
+            ? UIColor(named: "completed_task")
+            : UIColor(named: "normal_task")
+
     }
     
 }

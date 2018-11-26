@@ -31,12 +31,8 @@
 		B61CE09A21A82E53009D3377 /* TaskListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61CE09821A82E53009D3377 /* TaskListTableViewCell.swift */; };
 		B61CE09B21A82E53009D3377 /* TaskListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61CE09921A82E53009D3377 /* TaskListTableViewCell.xib */; };
 		B61CE09D21A83ACC009D3377 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61CE09C21A83ACC009D3377 /* TaskDetailViewController.swift */; };
-		B61CE09F21A9316E009D3377 /* TaskDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61CE09E21A9316E009D3377 /* TaskDetailTableViewCell.swift */; };
-		B61CE0A321A93462009D3377 /* TaskDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61CE0A221A93462009D3377 /* TaskDetailTableViewCell.xib */; };
 		B645ADCE21A180600057BD4D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B645ADCD21A1805F0057BD4D /* API.swift */; };
-		B69D859521AABB5C00A5EC15 /* ReminderPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D859421AABB5C00A5EC15 /* ReminderPickerViewController.swift */; };
-		B69D859721AABB9200A5EC15 /* ReminderPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B69D859621AABB9200A5EC15 /* ReminderPickerViewController.xib */; };
-		B69D859921AABCFF00A5EC15 /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D859821AABCFF00A5EC15 /* DialogViewController.swift */; };
+		B69D859D21AAFD8A00A5EC15 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D859C21AAFD8A00A5EC15 /* PreferenceKeys.swift */; };
 		B6C2774B21A00667009B1C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2774A21A00667009B1C13 /* AppDelegate.swift */; };
 		B6C2775021A00667009B1C13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C2774E21A00667009B1C13 /* Main.storyboard */; };
 		B6C2775221A0066A009B1C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C2775121A0066A009B1C13 /* Assets.xcassets */; };
@@ -69,12 +65,8 @@
 		B61CE09821A82E53009D3377 /* TaskListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewCell.swift; sourceTree = "<group>"; };
 		B61CE09921A82E53009D3377 /* TaskListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskListTableViewCell.xib; sourceTree = "<group>"; };
 		B61CE09C21A83ACC009D3377 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
-		B61CE09E21A9316E009D3377 /* TaskDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewCell.swift; sourceTree = "<group>"; };
-		B61CE0A221A93462009D3377 /* TaskDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaskDetailTableViewCell.xib; sourceTree = "<group>"; };
 		B645ADCD21A1805F0057BD4D /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		B69D859421AABB5C00A5EC15 /* ReminderPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderPickerViewController.swift; sourceTree = "<group>"; };
-		B69D859621AABB9200A5EC15 /* ReminderPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReminderPickerViewController.xib; sourceTree = "<group>"; };
-		B69D859821AABCFF00A5EC15 /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
+		B69D859C21AAFD8A00A5EC15 /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
 		B6C2774721A00667009B1C13 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C2774A21A00667009B1C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6C2774F21A00667009B1C13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,7 +94,6 @@
 		B600B34D21A4348000221CCB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B69D859321AABAD800A5EC15 /* Dialogs */,
 				B61CE09221A7EE6B009D3377 /* Cells */,
 				B600B34E21A4353100221CCB /* LoginViewController.swift */,
 				B600B34F21A4353100221CCB /* RootViewController.swift */,
@@ -158,6 +149,7 @@
 				B600B38721A5A95F00221CCB /* Date+Ext.swift */,
 				B600B38821A5A95F00221CCB /* Extensions.swift */,
 				B600B38921A5A95F00221CCB /* Loading.swift */,
+				B69D859C21AAFD8A00A5EC15 /* PreferenceKeys.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -167,8 +159,6 @@
 			children = (
 				B61CE09821A82E53009D3377 /* TaskListTableViewCell.swift */,
 				B61CE09921A82E53009D3377 /* TaskListTableViewCell.xib */,
-				B61CE09E21A9316E009D3377 /* TaskDetailTableViewCell.swift */,
-				B61CE0A221A93462009D3377 /* TaskDetailTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -180,16 +170,6 @@
 				B600B34721A2E9BF00221CCB /* Response.swift */,
 			);
 			path = Net;
-			sourceTree = "<group>";
-		};
-		B69D859321AABAD800A5EC15 /* Dialogs */ = {
-			isa = PBXGroup;
-			children = (
-				B69D859421AABB5C00A5EC15 /* ReminderPickerViewController.swift */,
-				B69D859621AABB9200A5EC15 /* ReminderPickerViewController.xib */,
-				B69D859821AABCFF00A5EC15 /* DialogViewController.swift */,
-			);
-			path = Dialogs;
 			sourceTree = "<group>";
 		};
 		B6C2773E21A00666009B1C13 = {
@@ -299,10 +279,8 @@
 			files = (
 				B6C2775521A0066A009B1C13 /* LaunchScreen.storyboard in Resources */,
 				B61CE09B21A82E53009D3377 /* TaskListTableViewCell.xib in Resources */,
-				B69D859721AABB9200A5EC15 /* ReminderPickerViewController.xib in Resources */,
 				B600B38121A4684D00221CCB /* Firebase.plist in Resources */,
 				B6C2775221A0066A009B1C13 /* Assets.xcassets in Resources */,
-				B61CE0A321A93462009D3377 /* TaskDetailTableViewCell.xib in Resources */,
 				B6C2775021A00667009B1C13 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,14 +319,13 @@
 				B61CE09D21A83ACC009D3377 /* TaskDetailViewController.swift in Sources */,
 				B61CE09A21A82E53009D3377 /* TaskListTableViewCell.swift in Sources */,
 				B600B35321A4353100221CCB /* TaskListViewController.swift in Sources */,
-				B69D859521AABB5C00A5EC15 /* ReminderPickerViewController.swift in Sources */,
 				B600B35621A4375B00221CCB /* AuthRepository.swift in Sources */,
 				B600B37121A4564900221CCB /* FirebaseAuthRepository.swift in Sources */,
 				B600B36C21A4524B00221CCB /* TaskRepository.swift in Sources */,
 				B600B37821A4598F00221CCB /* Entity.swift in Sources */,
 				B600B37F21A45B3F00221CCB /* FirebaseTaskRepository.swift in Sources */,
 				B600B35221A4353100221CCB /* RootViewController.swift in Sources */,
-				B61CE09F21A9316E009D3377 /* TaskDetailTableViewCell.swift in Sources */,
+				B69D859D21AAFD8A00A5EC15 /* PreferenceKeys.swift in Sources */,
 				B600B37921A4598F00221CCB /* Auth.swift in Sources */,
 				B600B36A21A4520600221CCB /* TaskListUseCase.swift in Sources */,
 				B6C2774B21A00667009B1C13 /* AppDelegate.swift in Sources */,
@@ -358,7 +335,6 @@
 				B645ADCE21A180600057BD4D /* API.swift in Sources */,
 				B600B34821A2E9BF00221CCB /* Response.swift in Sources */,
 				B600B35E21A43CEC00221CCB /* LoginUseCase.swift in Sources */,
-				B69D859921AABCFF00A5EC15 /* DialogViewController.swift in Sources */,
 				B600B37A21A4598F00221CCB /* Task.swift in Sources */,
 				B600B35121A4353100221CCB /* LoginViewController.swift in Sources */,
 				B600B38A21A5A95F00221CCB /* Date+Ext.swift in Sources */,
@@ -514,7 +490,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = TaskManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -537,7 +513,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = TaskManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

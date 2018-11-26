@@ -12,5 +12,6 @@ protocol TaskRepository {
     func fetchTask(callback: @escaping (NSError?) -> ())
     func createTask(title: String, now: String, callback: @escaping (NSError?) -> ())
     func saveTask(task: Task, callback: @escaping (NSError?) -> ())
+    func deleteTask(task: Task, callback: @escaping (NSError?) -> ())
 }
 

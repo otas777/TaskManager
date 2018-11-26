@@ -10,7 +10,9 @@ import UIKit
 
 class TaskDetailViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var completedSwitch: UISwitch!
+    @IBOutlet weak var memoTextView: UITextView!
     
     private var taskListUseCase: TaskListUseCase!
     var task: Task!
@@ -24,39 +26,56 @@ class TaskDetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = button
         
         self.taskListUseCase = TaskListUseCase(with: FirebaseTaskRepository(), FirebaseAuthRepository())
+        
+        self.titleField.text = self.task.title
+        self.titleField.addTarget(self, action: #selector(self.onEditingChanged(sender:)), for: .editingChanged)
 
-        self.tableView.tableFooterView = UIView()
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.register(UINib(nibName: "TaskDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "TaskDetailTableViewCell")
+        self.memoTextView.text = self.task.memo
+        self.memoTextView.delegate = self
+        self.memoTextView.layer.borderColor = UIColor.lightGray.cgColor
+        self.memoTextView.layer.borderWidth = 1
+        
+        self.completedSwitch.isOn = self.task.is_completed
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = "タスク詳細"
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "タスク詳細", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func onTaskSave(sender: UIBarButtonItem) {
         self.taskListUseCase.saveTask(task: self.task) { (error) in
-            
+            if let error = error {
+                self.showAlert(message: error.domain)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
+    }
+    
+    @objc func onEditingChanged(sender: UITextField) {
+        self.task.title = self.titleField.text ?? ""
+    }
+    
+    @IBAction func onValueChanged(_ sender: UISwitch) {
+        self.task.is_completed = sender.isOn
     }
 }
 
-extension TaskDetailViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+extension TaskDetailViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        self.task.memo = textView.text
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskDetailTableViewCell", for: indexPath) as! TaskDetailTableViewCell
-        cell.setData(task: self.task)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    }
-
 }

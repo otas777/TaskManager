@@ -14,7 +14,6 @@ class FirebaseTaskRepository: TaskRepository {
         API.fetchTask { (map, error) in
             
             if let error = error {
-//                let error = NSError(domain: "タスクの取得ができませんでした。", code: -1, userInfo: nil)
                 callback(error)
                 return
             }
@@ -65,6 +64,12 @@ class FirebaseTaskRepository: TaskRepository {
                 let error = NSError(domain: "タスクの更新ができませんでした。", code: -1, userInfo: nil)
                 callback(error)
             }
+        }
+    }
+    
+    func deleteTask(task: Task, callback: @escaping (NSError?) -> ()) {
+        API.deleteTask(task: task) { (response) in
+            
         }
     }
 }

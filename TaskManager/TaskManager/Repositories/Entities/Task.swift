@@ -13,7 +13,6 @@ class Task: Entity {
     @objc dynamic var id = ""
     @objc dynamic var title = ""
     @objc dynamic var memo = ""
-    @objc dynamic var reminder = ""
     @objc dynamic var task_create_date = ""
     @objc dynamic var is_completed = false
 
@@ -28,10 +27,8 @@ class Task: Entity {
         self.id = id
         self.title = response.title
         self.memo = response.memo
-        self.reminder = response.reminder
         self.task_create_date = response.create_date
         self.is_completed = response.is_completed
-        
     }
 }
 

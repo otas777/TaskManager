@@ -34,7 +34,6 @@ struct TaskResponse: Codable {
 struct FetchTaskResponse: Codable {
     var title = ""
     var memo = ""
-    var reminder = ""
     var create_date = ""
     var is_completed = false
 

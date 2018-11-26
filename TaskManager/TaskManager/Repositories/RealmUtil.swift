@@ -11,9 +11,14 @@ import RealmSwift
 
 class RealmUtil  {
     
-    static func findAll<T: Entity>() -> Results<T>? {
+    static func findAll<T: Entity>() -> Results<T> {
         let realm = try! Realm()
         return realm.objects(T.self)
+    }
+    
+    static func find<T: Entity>(format: String, args: Any...) -> Results<T> {
+        let realm = try! Realm()
+        return realm.objects(T.self).filter(format, args)
     }
     
     static func write(callback: (Realm) -> ()) {
@@ -50,4 +55,9 @@ class RealmUtil  {
             realm.delete(realm.objects(type))
         }
     }
+}
+
+
+extension Results {
+    
 }

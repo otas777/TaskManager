@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 class TaskListUseCase {
 
@@ -66,10 +67,10 @@ class TaskListUseCase {
             }
             
             self.taskRepository.saveTask(task: task) { (error) in
+                
                 callback(error)
                 Loading.dismiss()
             }
         }
-
     }
 }
