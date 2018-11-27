@@ -203,13 +203,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GoO-bJ-pV3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="タスク一覧" id="txc-vz-sPb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="Jbm-t7-9Uc">
-                            <connections>
-                                <action selector="onLogout:" destination="DNR-2j-OrF" id="Bp5-1H-7Yk"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="タスク一覧" id="txc-vz-sPb"/>
                     <connections>
                         <outlet property="addTaskButton" destination="YS7-px-Fv0" id="IJs-NZ-0m9"/>
                         <outlet property="allTaskButton" destination="ZKO-Zh-SrT" id="tQm-oT-B6x"/>

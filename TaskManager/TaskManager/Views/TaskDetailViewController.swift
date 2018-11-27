@@ -22,8 +22,8 @@ class TaskDetailViewController: UIViewController {
         
         self.navigationController?.navigationBar.items?.first?.title = ""
         
-        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onTaskSave(sender:)))
-        self.navigationItem.rightBarButtonItem = button
+        let saveButton = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(self.onTaskSave(sender:)))
+        self.navigationItem.rightBarButtonItem = saveButton
         
         self.taskListUseCase = TaskListUseCase(with: RealmTaskRepository(api: FirebaseAPI()),
                                                RealmAuthRepository(api: FirebaseAPI()))

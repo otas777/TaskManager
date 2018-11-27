@@ -61,6 +61,10 @@ class TaskListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // ログアウトボタンを追加
+        let logoutButton = UIBarButtonItem(title: "ログアウト", style: .plain, target: self, action: #selector(self.onLogout(_:)))
+        self.navigationItem.leftBarButtonItem = logoutButton
+        
         self.taskListUseCase = TaskListUseCase(with: RealmTaskRepository(api: FirebaseAPI()),
                                                RealmAuthRepository(api: FirebaseAPI()))
 
