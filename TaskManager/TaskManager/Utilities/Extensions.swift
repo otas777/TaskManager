@@ -10,6 +10,10 @@ import UIKit
 
 extension UIViewController {
     
+    /// StoryboardからViewControllerを取得
+    ///
+    /// - Parameter storyboard: 対象のStoryboard
+    /// - Returns: viewController
     static func instantiate(storyboard: UIStoryboard?) -> UIViewController? {
         let name = String(describing: self)
         return storyboard?.instantiateViewController(withIdentifier: name)
@@ -18,6 +22,10 @@ extension UIViewController {
 
 extension JSONDecoder {
 
+    /// デコード処理
+    ///
+    /// - Parameter data: デコードデータ
+    /// - Returns: デコード結果
     static func decode<T: Decodable>(data: Data?) -> T? {
         guard let data = data else {
             return nil

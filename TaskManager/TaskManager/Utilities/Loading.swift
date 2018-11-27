@@ -11,10 +11,12 @@ import SVProgressHUD
 
 class Loading {
     
+    /// ローディングの表示
     static func show() {
         SVProgressHUD.show()
     }
     
+    /// ローディングの非表示
     static func dismiss() {
         SVProgressHUD.dismiss()
     }

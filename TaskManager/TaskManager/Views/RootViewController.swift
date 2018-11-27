@@ -18,7 +18,7 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let _ = Auth.current {
+        if let _ = RealmAuthRepository.current {
             // ログイン済みの場合はログイン画面をスキップ
             self.toTaskList()
         } else {
@@ -26,14 +26,30 @@ class RootViewController: UIViewController {
         }
     }
     
+    /// アラートの表示
+    ///
+    /// - Parameters:
+    ///   - title: タイトル
+    ///   - message: メッセージ
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "閉じる", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    /// ログイン画面へ遷移
     func toLogin() {
         self.transition(to: LoginViewController.instantiate(storyboard: self.storyboard))
     }
     
+    /// タスク一覧画面へ遷移
     func toTaskList() {
         self.transition(to: TaskListViewController.instantiate(storyboard: self.storyboard))
     }
     
+    /// 画面の入れ替え
+    ///
+    /// - Parameter vc: 入れ替え対象
     func transition(to vc: UIViewController?) {
         
         guard let vc = vc else {

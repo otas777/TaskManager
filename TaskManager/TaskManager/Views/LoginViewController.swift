@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loginUseCase = LoginUseCase(loginDelegate: self, with: FirebaseAuthRepository())
+        self.loginUseCase = LoginUseCase(with: RealmAuthRepository(api: FirebaseAPI()))
         
         self.loginButton.layer.cornerRadius = 8
         self.registerButton.layer.cornerRadius = 8
@@ -28,12 +28,6 @@ class LoginViewController: UIViewController {
     
     deinit {
         print("LoginViewController deinit")
-    }
-    
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "ログイン", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,26 +40,19 @@ class LoginViewController: UIViewController {
 
 extension LoginViewController {
     
+    /// ログインボタンのタップイベント
+    ///
+    /// - Parameter sender: ボタン
     @IBAction func onLogin(_ sender: UIButton) {
         self.loginUseCase.login(email: self.emailField.text,
                                 password: self.passwordField.text)
     }
-    
+
+    /// 新規登録ボタンのタップイベント
+    ///
+    /// - Parameter sender: ボタン
     @IBAction func onRegister(_ sender: UIButton) {
         self.loginUseCase.register(email: self.emailField.text,
                                    password: self.passwordField.text)
-    }
-}
-
-// MARK: - LoginDelegate
-
-extension LoginViewController: LoginDelegate {
-    
-    func onLoginCompleted(_ error: NSError?) {
-        if let error = error {
-            self.showAlert(message: error.domain)
-        } else {
-            RootViewController.shared?.toTaskList()
-        }
     }
 }

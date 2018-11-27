@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+/// ログイン・新規登録のレスポンス
 struct LoginResponse: Codable {
     var kind: String
     var idToken: String
@@ -18,6 +20,8 @@ struct LoginResponse: Codable {
     var registered: Bool?
 }
 
+
+/// トークン更新のレスポンス
 struct RefreshResponse: Codable {
     var expires_in: String
     var token_type: String
@@ -27,10 +31,14 @@ struct RefreshResponse: Codable {
     var project_id: String
 }
 
+
+/// タスク作成のレスポンス
 struct TaskResponse: Codable {
     var name: String
 }
 
+
+/// タスク取得・保存のレスポンス
 struct FetchTaskResponse: Codable {
     var title = ""
     var memo = ""

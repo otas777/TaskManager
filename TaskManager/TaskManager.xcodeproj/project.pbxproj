@@ -18,13 +18,7 @@
 		B600B35E21A43CEC00221CCB /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B35D21A43CEC00221CCB /* LoginUseCase.swift */; };
 		B600B36A21A4520600221CCB /* TaskListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B36921A4520600221CCB /* TaskListUseCase.swift */; };
 		B600B36C21A4524B00221CCB /* TaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B36B21A4524B00221CCB /* TaskRepository.swift */; };
-		B600B37121A4564900221CCB /* FirebaseAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37021A4564900221CCB /* FirebaseAuthRepository.swift */; };
-		B600B37821A4598F00221CCB /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37521A4598F00221CCB /* Entity.swift */; };
-		B600B37921A4598F00221CCB /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37621A4598F00221CCB /* Auth.swift */; };
-		B600B37A21A4598F00221CCB /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37721A4598F00221CCB /* Task.swift */; };
-		B600B37F21A45B3F00221CCB /* FirebaseTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B37E21A45B3F00221CCB /* FirebaseTaskRepository.swift */; };
 		B600B38121A4684D00221CCB /* Firebase.plist in Resources */ = {isa = PBXBuildFile; fileRef = B600B38021A4684D00221CCB /* Firebase.plist */; };
-		B600B38521A5A10400221CCB /* RealmUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B38421A5A10400221CCB /* RealmUtil.swift */; };
 		B600B38A21A5A95F00221CCB /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B38721A5A95F00221CCB /* Date+Ext.swift */; };
 		B600B38B21A5A95F00221CCB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B38821A5A95F00221CCB /* Extensions.swift */; };
 		B600B38C21A5A95F00221CCB /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = B600B38921A5A95F00221CCB /* Loading.swift */; };
@@ -32,7 +26,14 @@
 		B61CE09B21A82E53009D3377 /* TaskListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61CE09921A82E53009D3377 /* TaskListTableViewCell.xib */; };
 		B61CE09D21A83ACC009D3377 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61CE09C21A83ACC009D3377 /* TaskDetailViewController.swift */; };
 		B645ADCE21A180600057BD4D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = B645ADCD21A1805F0057BD4D /* API.swift */; };
-		B69D859D21AAFD8A00A5EC15 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D859C21AAFD8A00A5EC15 /* PreferenceKeys.swift */; };
+		B69D85A221AD5D4300A5EC15 /* RealmUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D859F21AD5D4300A5EC15 /* RealmUtil.swift */; };
+		B69D85A321AD5D4300A5EC15 /* RealmAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85A021AD5D4300A5EC15 /* RealmAuthRepository.swift */; };
+		B69D85A421AD5D4300A5EC15 /* RealmTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85A121AD5D4300A5EC15 /* RealmTaskRepository.swift */; };
+		B69D85AA21AD5D6200A5EC15 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85A721AD5D6200A5EC15 /* Auth.swift */; };
+		B69D85AB21AD5D6200A5EC15 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85A821AD5D6200A5EC15 /* Task.swift */; };
+		B69D85AD21AD5E3600A5EC15 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85AC21AD5E3600A5EC15 /* FirebaseAPI.swift */; };
+		B69D85AF21AD631D00A5EC15 /* RealmAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85AE21AD631D00A5EC15 /* RealmAuth.swift */; };
+		B69D85B121AD6CAB00A5EC15 /* RealmTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69D85B021AD6CAB00A5EC15 /* RealmTask.swift */; };
 		B6C2774B21A00667009B1C13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C2774A21A00667009B1C13 /* AppDelegate.swift */; };
 		B6C2775021A00667009B1C13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6C2774E21A00667009B1C13 /* Main.storyboard */; };
 		B6C2775221A0066A009B1C13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C2775121A0066A009B1C13 /* Assets.xcassets */; };
@@ -52,13 +53,7 @@
 		B600B35D21A43CEC00221CCB /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		B600B36921A4520600221CCB /* TaskListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListUseCase.swift; sourceTree = "<group>"; };
 		B600B36B21A4524B00221CCB /* TaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRepository.swift; sourceTree = "<group>"; };
-		B600B37021A4564900221CCB /* FirebaseAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthRepository.swift; sourceTree = "<group>"; };
-		B600B37521A4598F00221CCB /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
-		B600B37621A4598F00221CCB /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		B600B37721A4598F00221CCB /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		B600B37E21A45B3F00221CCB /* FirebaseTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTaskRepository.swift; sourceTree = "<group>"; };
 		B600B38021A4684D00221CCB /* Firebase.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Firebase.plist; sourceTree = "<group>"; };
-		B600B38421A5A10400221CCB /* RealmUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmUtil.swift; sourceTree = "<group>"; };
 		B600B38721A5A95F00221CCB /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		B600B38821A5A95F00221CCB /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B600B38921A5A95F00221CCB /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
@@ -66,7 +61,14 @@
 		B61CE09921A82E53009D3377 /* TaskListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskListTableViewCell.xib; sourceTree = "<group>"; };
 		B61CE09C21A83ACC009D3377 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		B645ADCD21A1805F0057BD4D /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		B69D859C21AAFD8A00A5EC15 /* PreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
+		B69D859F21AD5D4300A5EC15 /* RealmUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmUtil.swift; sourceTree = "<group>"; };
+		B69D85A021AD5D4300A5EC15 /* RealmAuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmAuthRepository.swift; sourceTree = "<group>"; };
+		B69D85A121AD5D4300A5EC15 /* RealmTaskRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTaskRepository.swift; sourceTree = "<group>"; };
+		B69D85A721AD5D6200A5EC15 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		B69D85A821AD5D6200A5EC15 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		B69D85AC21AD5E3600A5EC15 /* FirebaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		B69D85AE21AD631D00A5EC15 /* RealmAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmAuth.swift; sourceTree = "<group>"; };
+		B69D85B021AD6CAB00A5EC15 /* RealmTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTask.swift; sourceTree = "<group>"; };
 		B6C2774721A00667009B1C13 /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C2774A21A00667009B1C13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6C2774F21A00667009B1C13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,10 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				B600B35521A4375B00221CCB /* AuthRepository.swift */,
-				B600B38421A5A10400221CCB /* RealmUtil.swift */,
 				B600B36B21A4524B00221CCB /* TaskRepository.swift */,
-				B600B37421A4598F00221CCB /* Entities */,
-				B600B36F21A4562500221CCB /* Firebase */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -124,32 +123,12 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		B600B36F21A4562500221CCB /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				B600B37021A4564900221CCB /* FirebaseAuthRepository.swift */,
-				B600B37E21A45B3F00221CCB /* FirebaseTaskRepository.swift */,
-			);
-			path = Firebase;
-			sourceTree = "<group>";
-		};
-		B600B37421A4598F00221CCB /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				B600B37521A4598F00221CCB /* Entity.swift */,
-				B600B37621A4598F00221CCB /* Auth.swift */,
-				B600B37721A4598F00221CCB /* Task.swift */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		B600B38621A5A92B00221CCB /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				B600B38721A5A95F00221CCB /* Date+Ext.swift */,
 				B600B38821A5A95F00221CCB /* Extensions.swift */,
 				B600B38921A5A95F00221CCB /* Loading.swift */,
-				B69D859C21AAFD8A00A5EC15 /* PreferenceKeys.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -168,8 +147,30 @@
 			children = (
 				B645ADCD21A1805F0057BD4D /* API.swift */,
 				B600B34721A2E9BF00221CCB /* Response.swift */,
+				B69D85AC21AD5E3600A5EC15 /* FirebaseAPI.swift */,
 			);
 			path = Net;
+			sourceTree = "<group>";
+		};
+		B69D859E21AD5D4300A5EC15 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				B69D859F21AD5D4300A5EC15 /* RealmUtil.swift */,
+				B69D85A021AD5D4300A5EC15 /* RealmAuthRepository.swift */,
+				B69D85A121AD5D4300A5EC15 /* RealmTaskRepository.swift */,
+				B69D85AE21AD631D00A5EC15 /* RealmAuth.swift */,
+				B69D85B021AD6CAB00A5EC15 /* RealmTask.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		B69D85A521AD5D6200A5EC15 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				B69D85A721AD5D6200A5EC15 /* Auth.swift */,
+				B69D85A821AD5D6200A5EC15 /* Task.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		B6C2773E21A00666009B1C13 = {
@@ -196,9 +197,11 @@
 				B6C2775621A0066A009B1C13 /* Info.plist */,
 				B6C2774A21A00667009B1C13 /* AppDelegate.swift */,
 				B6C2775121A0066A009B1C13 /* Assets.xcassets */,
+				B69D85A521AD5D6200A5EC15 /* Entities */,
 				B6C2775321A0066A009B1C13 /* LaunchScreen.storyboard */,
 				B6C2774E21A00667009B1C13 /* Main.storyboard */,
 				B645ADCA21A180270057BD4D /* Net */,
+				B69D859E21AD5D4300A5EC15 /* Realm */,
 				B600B35421A436E600221CCB /* Repositories */,
 				B600B35C21A43CDC00221CCB /* UseCases */,
 				B600B38621A5A92B00221CCB /* Utilities */,
@@ -318,24 +321,25 @@
 			files = (
 				B61CE09D21A83ACC009D3377 /* TaskDetailViewController.swift in Sources */,
 				B61CE09A21A82E53009D3377 /* TaskListTableViewCell.swift in Sources */,
+				B69D85A321AD5D4300A5EC15 /* RealmAuthRepository.swift in Sources */,
 				B600B35321A4353100221CCB /* TaskListViewController.swift in Sources */,
+				B69D85AB21AD5D6200A5EC15 /* Task.swift in Sources */,
 				B600B35621A4375B00221CCB /* AuthRepository.swift in Sources */,
-				B600B37121A4564900221CCB /* FirebaseAuthRepository.swift in Sources */,
 				B600B36C21A4524B00221CCB /* TaskRepository.swift in Sources */,
-				B600B37821A4598F00221CCB /* Entity.swift in Sources */,
-				B600B37F21A45B3F00221CCB /* FirebaseTaskRepository.swift in Sources */,
 				B600B35221A4353100221CCB /* RootViewController.swift in Sources */,
-				B69D859D21AAFD8A00A5EC15 /* PreferenceKeys.swift in Sources */,
-				B600B37921A4598F00221CCB /* Auth.swift in Sources */,
+				B69D85A421AD5D4300A5EC15 /* RealmTaskRepository.swift in Sources */,
+				B69D85AD21AD5E3600A5EC15 /* FirebaseAPI.swift in Sources */,
 				B600B36A21A4520600221CCB /* TaskListUseCase.swift in Sources */,
 				B6C2774B21A00667009B1C13 /* AppDelegate.swift in Sources */,
+				B69D85AA21AD5D6200A5EC15 /* Auth.swift in Sources */,
 				B600B38B21A5A95F00221CCB /* Extensions.swift in Sources */,
+				B69D85A221AD5D4300A5EC15 /* RealmUtil.swift in Sources */,
 				B600B38C21A5A95F00221CCB /* Loading.swift in Sources */,
-				B600B38521A5A10400221CCB /* RealmUtil.swift in Sources */,
+				B69D85B121AD6CAB00A5EC15 /* RealmTask.swift in Sources */,
 				B645ADCE21A180600057BD4D /* API.swift in Sources */,
 				B600B34821A2E9BF00221CCB /* Response.swift in Sources */,
 				B600B35E21A43CEC00221CCB /* LoginUseCase.swift in Sources */,
-				B600B37A21A4598F00221CCB /* Task.swift in Sources */,
+				B69D85AF21AD631D00A5EC15 /* RealmAuth.swift in Sources */,
 				B600B35121A4353100221CCB /* LoginViewController.swift in Sources */,
 				B600B38A21A5A95F00221CCB /* Date+Ext.swift in Sources */,
 			);

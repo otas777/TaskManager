@@ -27,17 +27,20 @@ class TaskListTableViewCell: UITableViewCell {
         self.baseView.layer.shadowRadius = 3
     }
 
+    /// タスクの値を元に表示に反映
+    ///
+    /// - Parameter task: 対象のタスク
     func setData(task: Task) {
         
         self.titleLabel.text = task.title
         
-        self.createDateLabel.text = task.task_create_date
+        self.createDateLabel.text = task.create_date
         
         self.completedSwitch.isOn = task.is_completed
         
         self.baseView.backgroundColor = task.is_completed
-            ? UIColor(named: "completed_task")
-            : UIColor(named: "normal_task")
+            ? UIColor(named: "completed_task")  // 完了済みなら青系の色
+            : UIColor(named: "normal_task")     // 未完了なら赤系の色
 
     }
     

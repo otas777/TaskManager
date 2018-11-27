@@ -8,50 +8,62 @@
 
 import Foundation
 
-protocol LoginDelegate: class {
-    func onLoginCompleted(_ error: NSError?)
-}
-
 class LoginUseCase {
-    private weak var loginDelegate: LoginDelegate?
+    
     private let authRepository: AuthRepository
     
-    init(loginDelegate: LoginDelegate, with authRepository: AuthRepository) {
-        self.loginDelegate = loginDelegate
+    init(with  authRepository: AuthRepository) {
         self.authRepository = authRepository
     }
     
+    /// ログイン処理
+    ///
+    /// - Parameters:
+    ///   - email: メールアドレス
+    ///   - password: パスワード
     func login(email: String?, password: String?) {
 
         guard let email = email, let password = password,
             !email.isEmpty, !password.isEmpty else {
-
                 let error = NSError(domain: "メールアドレスとパスワードを入力してください", code: -1, userInfo: nil)
-                self.loginDelegate?.onLoginCompleted(error)
+                self.onLoginCompleted(error)
                 return
         }
         
         Loading.show()
-        self.authRepository.login(email: email, password: password) { (error) in
-            self.loginDelegate?.onLoginCompleted(error)
-            Loading.dismiss()
-        }
+        self.authRepository.login(email: email, password: password, callback: self.onLoginCompleted(_:))
     }
-    
+
+    /// ユーザー登録処理
+    ///
+    /// - Parameters:
+    ///   - email: メールアドレス
+    ///   - password: パスワード
     func register(email: String?, password: String?) {
 
         guard let email = email, let password = password,
             !email.isEmpty, !password.isEmpty else {
                 
                 let error = NSError(domain: "メールアドレスとパスワードを入力してください", code: -1, userInfo: nil)
-                self.loginDelegate?.onLoginCompleted(error)
+                self.onLoginCompleted(error)
                 return
         }
 
         Loading.show()
-        self.authRepository.register(email: email, password: password) { (error) in
-            self.loginDelegate?.onLoginCompleted(error)
-            Loading.dismiss()
+        self.authRepository.register(email: email, password: password, callback: self.onLoginCompleted(_:))
+    }
+    
+    
+    /// APIの完了処理
+    ///
+    /// - Parameter error: エラー
+    func onLoginCompleted(_ error: NSError?) {
+        Loading.dismiss()
+        if let error = error {
+            RootViewController.shared?.showAlert(title: "ログインエラー", message: error.domain)
+        } else {
+            RootViewController.shared?.toTaskList()
         }
     }
+
 }

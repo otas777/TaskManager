@@ -27,55 +27,43 @@ class TaskListViewController: UIViewController {
     
     private var taskListUseCase: TaskListUseCase!
     
-    private var taskList: Results<Task>!
-    private var notificationToken: NotificationToken?
+    /// タスク一覧
+    private var taskList = [Task]()
     
+    /// 現在の選択タブの管理
     private var currentType = ListType.all {
         didSet {
-            
-            self.notificationToken?.invalidate()
-            self.notificationToken = nil
             
             self.allTaskButton.isSelected = false
             self.incompleteButton.isSelected = false
             self.completedButton.isSelected = false
             
-            var emptytext = ""
             switch self.currentType {
             case .all:
-                self.taskList = RealmUtil.findAll().sorted(byKeyPath: "task_create_date", ascending: false)
-                emptytext = "タスクがありません。\n右下のボタンから登録できます。"
+                self.taskListUseCase.findAll(changed: self.onTaskChanged(_: ))
                 self.allTaskButton.isSelected = true
+                self.emptyLabel.text = "タスクがありません。\n右下のボタンから登録できます。"
 
 
             case .incomplete:
-                self.taskList = RealmUtil.find(format: "is_completed==NO").sorted(byKeyPath: "task_create_date", ascending: false)
+                self.taskListUseCase.findIncomplete(changed: self.onTaskChanged(_: ))
                 self.incompleteButton.isSelected = true
-                emptytext = "未完了タスクはありません"
+                self.emptyLabel.text = "未完了タスクはありません"
 
             case .completed:
-                self.taskList = RealmUtil.find(format: "is_completed==YES").sorted(byKeyPath: "task_create_date", ascending: false)
+                self.taskListUseCase.findCompleted(changed: self.onTaskChanged(_:))
                 self.completedButton.isSelected = true
-                emptytext = "完了タスクはありません"
+                self.emptyLabel.text = "完了タスクはありません"
             }
-            
-            self.notificationToken = self.taskList.observe { (change) in
-                print("タスク更新")
-                self.tableView.reloadData()
-                self.emptyLabel.isHidden = !self.taskList.isEmpty
-            }
-            
-            self.emptyLabel.isHidden = !self.taskList.isEmpty
-            self.emptyLabel.text = emptytext
-
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.taskListUseCase = TaskListUseCase(with: FirebaseTaskRepository(), FirebaseAuthRepository())
-        
+        self.taskListUseCase = TaskListUseCase(with: RealmTaskRepository(api: FirebaseAPI()),
+                                               RealmAuthRepository(api: FirebaseAPI()))
+
         self.currentType = .all
 
         self.tableView.tableFooterView = UIView()
@@ -84,20 +72,13 @@ class TaskListViewController: UIViewController {
         
         self.addTaskButton.layer.cornerRadius = self.addTaskButton.frame.width / 2
 
-        self.taskListUseCase.fetchTask() { (error) in
-            if let error = error {
-                self.showAlert(message: error.domain)
-                
-            } else {
-                self.emptyLabel.isHidden = !self.taskList.isEmpty
-            }
-        }
+        // APIからタスクを取得
+        self.taskListUseCase.fetchTask()
     }
     
     deinit {
         print("TaskListViewController deinit")
-        self.notificationToken?.invalidate()
-        self.notificationToken = nil
+        self.taskListUseCase.release()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,18 +89,21 @@ class TaskListViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toTaskDetail" {
+            // タスクを設定
             let vc = segue.destination as! TaskDetailViewController
-            // スタンドアローン化してから渡す
-            vc.task = Task(value: self.taskList[(sender as! NSIndexPath).row])
+            vc.task = self.taskList[(sender as! NSIndexPath).row]
         }
     }
     
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "タスク一覧", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+    func onTaskChanged(_ list: [Task]) {
+
+        self.taskList.removeAll()
+        self.taskList = list
+        
+        self.emptyLabel.isHidden = !self.taskList.isEmpty
+        
+        self.tableView.reloadData()
     }
-    
 }
 
 // MARK: - IBAction
@@ -137,11 +121,7 @@ extension TaskListViewController {
                 return
             }
 
-            self.taskListUseCase.createTask(title: title) { (error) in
-                if let error = error {
-                    self.showAlert(message: error.domain)
-                }
-            }
+            self.taskListUseCase.createTask(title: title)
         })
         dialog.addAction(UIAlertAction(title: "キャンセル", style: .cancel, handler: nil))
         self.present(dialog, animated: true, completion: nil)
@@ -150,8 +130,7 @@ extension TaskListViewController {
     }
 
     @IBAction func onLogout(_ sender: UIBarButtonItem) {
-        RealmUtil.deleteAll(type: Auth.self)
-        RealmUtil.deleteAll(type: Task.self)
+        self.taskListUseCase.logout()
         RootViewController.shared?.toLogin()
     }
     
@@ -186,20 +165,27 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         self.performSegue(withIdentifier: "toTaskDetail", sender: indexPath)
     }
     
+    /// 完了スイッチの値変更イベント
+    ///
+    /// - Parameter sender: スイッチ
     @objc func onValueChanged(sender: UISwitch) {
         
+        /// 操作したスイッチのindexPathを取得
         let point = sender.convert(sender.bounds.origin, to:self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: point) else {
             return
         }
         
-        // スタンドアローン化
-        let standaloneTask = Task(value: self.taskList[indexPath.row])
-        standaloneTask.is_completed = sender.isOn
-        self.taskListUseCase.saveTask(task: standaloneTask) { (error) in
+        // タスクの値を更新
+        var task = self.taskList[indexPath.row]
+        task.is_completed = sender.isOn
+        
+        Loading.show()
+        self.taskListUseCase.saveTask(task: task) { (error) in
+            Loading.dismiss()
             if let error = error {
                 sender.isOn = !sender.isOn
-                self.showAlert(message: error.domain)
+                RootViewController.shared?.showAlert(title: "タスク一覧", message: error.domain)
             }
         }
     }

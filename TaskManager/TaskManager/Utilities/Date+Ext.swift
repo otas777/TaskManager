@@ -12,6 +12,8 @@ extension Date {
     
     static let defaultFormat = "yyyy/MM/dd HH:mm:ss"
     
+    
+    /// 現在の日付・時刻を取得
     static var now: String {
         let dateFormater = DateFormatter()
         dateFormater.locale = Locale.current
@@ -19,6 +21,10 @@ extension Date {
         return dateFormater.string(from: Date())
     }
 
+    /// Dateから日付文字列を作成
+    ///
+    /// - Parameter format: フォーマット
+    /// - Returns: 日付文字列
     func toString(format: String = defaultFormat) -> String {
         let dateFormatter = DateFormatter()
         let cal = Calendar(identifier: .gregorian)
@@ -28,6 +34,12 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
+    /// 日付文字列からDateを作成
+    ///
+    /// - Parameters:
+    ///   - dateString: 日付文字列
+    ///   - format: フォーマット
+    /// - Returns: Date
     static func fromString(dateString: String?, format: String = defaultFormat) -> Date? {
         guard let str = dateString else {
             return nil
@@ -39,24 +51,12 @@ extension Date {
         dateFormatter.locale = Locale.current
         return dateFormatter.date(from: str)
     }
+
     
-    func isPassedNow(periodDay: Double = 0.0) -> Bool {
-        
-        // 時刻を23:59:59に変更してから経過時間を判定する
-        let calendar = Calendar(identifier: .gregorian)
-        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
-        components.hour = 23
-        components.minute = 59
-        components.second = 59
-        
-        let tmp = calendar.date(from: components)!
-        
-        let interval = tmp.timeIntervalSinceNow
-        let elapsedDay = -(interval / 86400)
-        print("isPassedNow periodDay:\(periodDay) \(elapsedDay)")
-        return periodDay < elapsedDay
-    }
-    
+    /// 指定秒後のDateを作成
+    ///
+    /// - Parameter sec: 秒数
+    /// - Returns: Date
     func afterDate(sec: TimeInterval) -> Date {
         return Date(timeInterval: sec, since: self)
     }

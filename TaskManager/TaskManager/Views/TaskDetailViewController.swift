@@ -25,8 +25,9 @@ class TaskDetailViewController: UIViewController {
         let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.onTaskSave(sender:)))
         self.navigationItem.rightBarButtonItem = button
         
-        self.taskListUseCase = TaskListUseCase(with: FirebaseTaskRepository(), FirebaseAuthRepository())
-        
+        self.taskListUseCase = TaskListUseCase(with: RealmTaskRepository(api: FirebaseAPI()),
+                                               RealmAuthRepository(api: FirebaseAPI()))
+
         self.titleField.text = self.task.title
         self.titleField.addTarget(self, action: #selector(self.onEditingChanged(sender:)), for: .editingChanged)
 

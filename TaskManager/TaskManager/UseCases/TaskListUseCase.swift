@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import RealmSwift
 
+/// タスクの一覧と詳細のロジック
 class TaskListUseCase {
 
     private let taskRepository: TaskRepository
@@ -19,45 +19,83 @@ class TaskListUseCase {
         self.authRepository = authRepository
     }
 
-    func fetchTask(callback: @escaping (NSError?) -> ()) {
+    
+    /// ログアウト処理
+    func logout() {
+        // ログイン情報とタスクをDBから削除
+        self.taskRepository.deleteAll()
+        self.authRepository.deleteAll()
+    }
+    
+    /// 解放処理
+    func release() {
+        self.taskRepository.release()
+    }
+    
+    /// 全てのタスクをDBから検索
+    ///
+    /// - Parameter changed: 検索結果
+    func findAll(changed: @escaping ([Task]) -> ()) {
+        self.taskRepository.release()
+        return self.taskRepository.findAll(changed: changed)
+    }
+    
+    /// 未完了のタスクをDBから検索
+    ///
+    /// - Parameter changed: 検索結果
+    func findIncomplete(changed: @escaping ([Task]) -> ()) {
+        self.taskRepository.release()
+        return self.taskRepository.findIncomplete(changed: changed)
+    }
+
+    /// 完了済みのタスクをDBから検索
+    ///
+    /// - Parameter changed: 検索結果
+    func findCompleted(changed: @escaping ([Task]) -> ()) {
+        self.taskRepository.release()
+        return self.taskRepository.findCompleted(changed: changed)
+    }
+
+    /// タスクをAPIから取得
+    func fetchTask() {
         
         Loading.show()
         self.authRepository.validateToken { (error) in
             
             if let error = error {
-                callback(error)
-                Loading.dismiss()
+                self.onApiCompleted(error)
                 return
             }
-            
-            self.taskRepository.fetchTask { (error) in
-                callback(error)
-                Loading.dismiss()
-            }
+
+            self.taskRepository.fetchTask(callback: self.onApiCompleted(_:))
         }
     }
     
-    func createTask(title: String, callback: @escaping (NSError?) -> ()) {
+    /// タスクの作成
+    ///
+    /// - Parameters:
+    ///   - title: タスクのタイトル
+    func createTask(title: String) {
         
         Loading.show()
         self.authRepository.validateToken { (error) in
             
             if let error = error {
-                callback(error)
-                Loading.dismiss()
+                self.onApiCompleted(error)
                 return
             }
             
-            self.taskRepository.createTask(title: title, now: Date.now) { (error) in
-                callback(error)
-                Loading.dismiss()
-            }
+            self.taskRepository.createTask(title: title, now: Date.now, callback: self.onApiCompleted(_:))
         }
     }
     
+    /// タスクの保存
+    ///
+    /// - Parameters:
+    ///   - task: 保存対象のタスク
+    ///   - callback: 保存結果
     func saveTask(task: Task, callback: @escaping (NSError?) -> ()) {
         
-        Loading.show()
         self.authRepository.validateToken { (error) in
             
             if let error = error {
@@ -66,11 +104,18 @@ class TaskListUseCase {
                 return
             }
             
-            self.taskRepository.saveTask(task: task) { (error) in
-                
-                callback(error)
-                Loading.dismiss()
-            }
+            self.taskRepository.saveTask(task: task, callback: callback)
         }
+    }
+    
+    /// APIの完了処理
+    ///
+    /// - Parameter error: エラー
+    func onApiCompleted(_ error: NSError?) {
+        Loading.dismiss()
+        if let error = error {
+            RootViewController.shared?.showAlert(title: "タスクエラー", message: error.domain)
+        }
+
     }
 }

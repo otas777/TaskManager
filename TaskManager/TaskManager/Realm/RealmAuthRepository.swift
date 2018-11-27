@@ -1,5 +1,5 @@
 //
-//  FirebaseAuthRepository.swift
+//  RealmAuthRepository.swift
 //  TaskManager
 //
 //  Created by 太田聖治 on 2018/11/20.
@@ -8,14 +8,29 @@
 
 import Foundation
 
-class FirebaseAuthRepository: AuthRepository {
+class RealmAuthRepository: AuthRepository {
 
+    static var current: Auth? {
+        let realmAuth: RealmAuth? = RealmUtil.findAll().first
+        return realmAuth?.toEntity()
+    }
+    
+    private var api: API!
+    init(api: API) {
+        self.api = api
+    }
+
+    func deleteAll() {
+        RealmUtil.deleteAll(type: RealmAuth.self)
+    }
+    
     func login(email: String, password: String, callback: @escaping (NSError?) -> ()) {
         
-        API.login(email: email, password: password) { (response) in
+        self.api.login(email: email, password: password) { (response) in
             if let response = response {
-                let auth = Auth(response: response)
-                RealmUtil.add(entity: auth)
+                // DBへ保存
+                let auth = RealmAuth(response: response)
+                RealmUtil.add(obj: auth)
                 callback(nil)
                 
             } else {
@@ -27,10 +42,11 @@ class FirebaseAuthRepository: AuthRepository {
     
     func register(email: String, password: String, callback: @escaping (NSError?) -> ()) {
         
-        API.register(email: email, password: password) { (response) in
+        self.api.register(email: email, password: password) { (response) in
             if let response = response {
-                let auth = Auth(response: response)
-                RealmUtil.add(entity: auth)
+                // DBへ保存
+                let auth = RealmAuth(response: response)
+                RealmUtil.add(obj: auth)
                 callback(nil)
                 
             } else {
@@ -42,7 +58,8 @@ class FirebaseAuthRepository: AuthRepository {
     
     func validateToken(callback: @escaping (NSError?) -> ()) {
 
-        guard let auth = Auth.current else {
+        // ログイン状態をチェック
+        guard let auth = RealmAuthRepository.current else {
             let error = NSError(domain: "ログインしてください。", code: -1, userInfo: nil)
             callback(error)
             return
@@ -50,12 +67,12 @@ class FirebaseAuthRepository: AuthRepository {
         
         if auth.isExpired {
             // トークンの期限切れのため更新
-            API.refreshToken { (response) in
+            self.api.refreshToken { (response) in
                 if let response = response {
-                    RealmUtil.write { (realm) in
-                        Auth.current?.set(response: response)
-                    }
+                    let auth = RealmAuth(response: response)
+                    RealmUtil.add(obj: auth)
                     callback(nil)
+
                 } else {
                     let error = NSError(domain: "トークンの更新ができませんでした。", code: -1, userInfo: nil)
                     callback(error)
