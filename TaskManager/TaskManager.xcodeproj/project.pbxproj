@@ -155,11 +155,11 @@
 		B69D859E21AD5D4300A5EC15 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				B69D859F21AD5D4300A5EC15 /* RealmUtil.swift */,
-				B69D85A021AD5D4300A5EC15 /* RealmAuthRepository.swift */,
-				B69D85A121AD5D4300A5EC15 /* RealmTaskRepository.swift */,
 				B69D85AE21AD631D00A5EC15 /* RealmAuth.swift */,
+				B69D85A021AD5D4300A5EC15 /* RealmAuthRepository.swift */,
 				B69D85B021AD6CAB00A5EC15 /* RealmTask.swift */,
+				B69D85A121AD5D4300A5EC15 /* RealmTaskRepository.swift */,
+				B69D859F21AD5D4300A5EC15 /* RealmUtil.swift */,
 			);
 			path = Realm;
 			sourceTree = "<group>";

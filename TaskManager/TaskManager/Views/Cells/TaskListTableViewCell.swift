@@ -13,7 +13,6 @@ class TaskListTableViewCell: UITableViewCell {
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var completedSwitch: UISwitch!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var createDateLabel: UILabel!
     
     override func awakeFromNib() {

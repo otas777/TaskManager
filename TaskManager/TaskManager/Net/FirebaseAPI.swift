@@ -52,7 +52,7 @@ class FirebaseAPI: API {
     
     let header = {
         return [
-            "Contenttype": "application/json"
+            "Content-Type": "application/json"
         ]
     }()
     
@@ -137,7 +137,6 @@ class FirebaseAPI: API {
         let parameters: [String: Any] = [
             "title": title,
             "memo": "",
-            "reminder": "",
             "create_date": now,
             "is_completed": false
         ]
